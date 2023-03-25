@@ -1,0 +1,203 @@
+.nav{
+    background-color: #4270ED;
+    width: 390px;
+    height: 96px;
+    position: relative;
+  }
+  .nav-route{
+    position: absolute;
+    height: 45px;
+    width: 390px;
+    margin-top: 50px;
+    display: flex;
+  }
+  .nav-show-button{
+    position: absolute;
+    margin-left: 56px;
+  }
+  .nav-show-route{
+    height: 45px;
+    width: 186px;
+    
+    display: flex;
+    margin-left: 118px;
+    color: white;
+  }
+  .nav-show-route-start{
+    width: 50px;
+    height: 45px;
+  }
+  .nav-show-route-end{
+    width: 50px;
+    height: 45px;
+    
+  }
+  .icon-arrow{
+    margin-left: 29px;
+    margin-right: 29px;
+    color: #FCFCFC;
+  }
+  .bookmarkFillIcon,.bookmarkIcon{
+    color: #FCFCFC;
+    
+  }
+  .bookmarkFillIcon{
+    width: 25px;
+    height: 25px;
+  }
+  .top2{
+    width: 350px;
+    height: 73px;
+    background-color: #F5F5F5;
+    border-radius: 16px;
+    margin-top: 27px;
+    margin-left: 20px;
+    border: 1px solid #F5F5F5;
+    margin-bottom: 48px;
+  }
+  .top-content-1{
+    width: 350px;
+    height: 21px;
+    
+    margin-top: 18px;
+  }
+  .top-content-2{
+    width: 294px;
+    height: 21px;
+    color: #949494;
+    font-size: 12px;
+    text-align: left;
+    margin-left: 56px;
+  }
+  .top-content-1-1{
+    width: 237px;
+    height: 21px;
+    margin-left: 56px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .top-content-1-right{
+    width: 98px;
+    height: 21px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+  }
+  .top-content-1-right-1,.top-content-1-right-2,.top-content-1-left-1,.top-content-1-left-2{
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .top-content-1-right-1,.top-content-1-left-1{
+    color: #4270ED;
+  }
+  .top-content-1-left{
+    width: 98px;
+    height: 21px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+  }
+  .content2{
+    background-color: white;
+    width: 350px;
+    margin-left: 20px;
+    height: 100%;
+  }
+  .content2-1{
+    background-color: white;
+    width: 350px;
+    height: 100px;
+    display: flex;
+    position: relative;
+  }
+  .conten2-left{
+    width: 80px;
+    height: 100px;
+    margin-left: 20px;
+    position: absolute;
+  }
+  .conten2-right{
+    height: 100px;
+    width: 240px;
+    position: absolute;
+    margin-left: 80px;
+    border-left: 2px dotted #949494;
+  }
+  .content2-left-font{
+    width: 80px;
+    position: absolute;
+    margin-top: 100px;
+    height: 45px;
+    justify-content: right;
+    display: flex;
+    z-index: 9999;
+  }
+  .content2-left-font-1{
+    position: absolute;
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .content2-left-font-2{
+    position: absolute;
+    margin-top: 23px;
+    font-size: 13px;
+    color: #777777;
+  }
+  .content2-right-card{
+    height: 90px;
+    width: 230px;
+    background-color: #FFDFDF;
+    border-radius: 20px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+  }
+  .content2-right-card-in{
+    position: absolute;
+    height: 48px;
+    width: 203px;
+    display: flex;
+   margin-top: 23px;
+    margin-left: 12px;
+    justify-content: space-between;
+    display: flex;
+  }
+  .content2-right-card-in-l{
+    
+    height: 48px;
+    width: 120px;
+    text-align: left;
+    margin-left: 10px;
+   
+  }
+  .content2-right-card-in-r{
+    height: 48px;
+    width: 53px;
+    background-color: #FCFCFC;
+    margin-top: 14px;
+    border-radius: 19px;
+  }
+  .content2-right-card-in-l-1{
+    height: 24px;
+    border: 1px solid red;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .content2-right-card-in-l-2{
+    height: 21px;
+    border: 1px solid red;
+    font-size: 12px;
+    color: #777777;
+  }
+  .content2-right-card-in-r{
+    border: 1px solid red;
+    height: 21px;
+  }
+  .dot{
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    color: #7F40D8;
+    margin-left: 36px;
+    margin-top: 95px;
+    z-index: 9999;
+  }
