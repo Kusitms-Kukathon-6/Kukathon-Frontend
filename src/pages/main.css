@@ -1,43 +1,52 @@
-.main-box {
-  background-color: wheat;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 1px solid red;
-  display: flex;
-  text-align: center;
-  width: 50%;
-  height: 50%;
+.all {
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #dcdcdc;
+  width: 390px;
+  height: 844px;
+}
 
+.top {
+  height: 486px;
+  background-color: #e8ebfd;
+  border-bottom-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
 }
-.main-box-1{
-  
-  background-color: white;
-  border: 1px solid black;
-  width: 300px;
-  height: 50%;
-  margin-top: 80px;
-  text-align: center;
+
+.bottom {
+  height: 100%;
 }
-.main-button{
-  width: 100px;
-  height:20px;
-  
+.main-header {
+  display: flex;
+  height: 197px;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 32px;
+  padding-right: 32px;
 }
-.main-box-2{
-  border: 1px solid red;
-  width: 70%;
-  height: 20%;
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
 }
-.main-box-2{
-  background-color: white;
-  
+.service-name {
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.03em;
+  text-align: left;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 42px;
 }
-.main-box-2-1{
-  border: 1px solid red;
-  
-}
-.main-box-2-2{
-  border: 1px solid red;
+
+.service-info {
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.03em;
+  color: #4270ed;
+  font-weight: 500;
+  font-size: 13px;
 }
