@@ -9,6 +9,7 @@ import { UimCircle } from "@iconscout/react-unicons-monochrome";
 import { StationInfo } from "../api/stationInfo";
 import GoodIcon from "../assets/img/goodicon.svg";
 import BadIcon from "../assets/img/badicon.svg";
+import Modal from "./Modal";
 const routeDate = {
   result: {
     globalStartName: "홍대입구",
@@ -230,7 +231,7 @@ const RoutePage = () => {
   console.log(searchResult);
   console.log("asdfadsfsd");
   const [bookmark, setBookmark] = useState(false);
-
+  const [api, setApi] = useState("");
   const handleBookmark = () => {
     setBookmark(!bookmark);
   };
@@ -241,11 +242,13 @@ const RoutePage = () => {
       const response = await StationInfo(itm);
       evInfo[idx] = response.availabe;
       setStInfo(evInfo);
+      setApi(response.data);
     };
     stationList1.map((itm, idx) => {
       getEV(itm, idx);
     });
   }, [evInfo]);
+
   const GoodBOX = () => {
     return (
       <div className="good">
@@ -253,6 +256,7 @@ const RoutePage = () => {
           <img src={GoodIcon} alt="" />
         </div>
         <div className="good-text">환승 가능</div>
+        <Modal api={api} />
       </div>
     );
   };
