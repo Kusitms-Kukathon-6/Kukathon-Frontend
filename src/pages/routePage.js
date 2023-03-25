@@ -4,7 +4,9 @@ import { UilArrowRight } from "@iconscout/react-unicons";
 import { UilStar } from "@iconscout/react-unicons"; //안채워진
 import { UimStar } from "@iconscout/react-unicons-monochrome"; //채워진
 import { UimCircle } from "@iconscout/react-unicons-monochrome";
-
+import { StationInfo } from "../api/stationInfo";
+import GoodIcon from "../assets/img/goodicon.svg";
+import BadIcon from "../assets/img/badicon.svg";
 const routeDate = {
   result: {
     globalStartName: "홍대입구",
@@ -173,10 +175,7 @@ const routeDate = {
   },
 };
 
-// console.log(
-//   routeDate.result.driveInfoSet.driveInfo[0].startName,
-//   routeDate.result.driveInfoSet.driveInfo[0].wayCode
-// );
+let evInfo = [false, false, false];
 
 let exChangeID = 0;
 let listLength = routeDate.result.stationSet.stations.length;
@@ -209,11 +208,19 @@ const stationList = [
   routeDate.result.stationSet.stations[listLength - 1].endName,
 ];
 
-const stationInfoList = [
-  { Station: firstStation, Way: firstWay, Time: firstTime },
-  { Station: lastStation, Way: lastWay, Time: lastTime },
+const stationList1 = [
+  routeDate.result.stationSet.stations[0].startName,
+  routeDate.result.stationSet.stations[exChangeID].startName,
+  routeDate.result.stationSet.stations[listLength - 1].endName,
 ];
 //역 리스트
+
+const stationLineList = [
+  routeDate.result.driveInfoSet.driveInfo[0].wayCode,
+  routeDate.result.driveInfoSet.driveInfo[0].wayCode,
+  routeDate.result.driveInfoSet.driveInfo[1].wayCode,
+  routeDate.result.driveInfoSet.driveInfo[1].wayCode,
+];
 
 const RoutePage = () => {
   const [bookmark, setBookmark] = useState(false);
@@ -221,7 +228,51 @@ const RoutePage = () => {
   const handleBookmark = () => {
     setBookmark(!bookmark);
   };
+  const [stInfo, setStInfo] = useState([false, false, false]);
 
+  useEffect(() => {
+    const getEV = async (itm, idx) => {
+      const response = await StationInfo(itm);
+      evInfo[idx] = response.availabe;
+      setStInfo(evInfo);
+    };
+    stationList1.map((itm, idx) => {
+      getEV(itm, idx);
+    });
+  }, [evInfo]);
+  const GoodBOX = () => {
+    return (
+      <div className="good">
+        <div className="good-icon">
+          <img src={GoodIcon} alt="" />
+        </div>
+        <div className="good-text">환승 가능</div>
+      </div>
+    );
+  };
+  const BadBOX = () => {
+    return (
+      <div className="bad">
+        <div className="bad-icon-container">
+          <img className="badicon" src={BadIcon} alt="" />
+        </div>
+        <div className="bad-text">역사 진입 어려움</div>
+      </div>
+    );
+  };
+  console.log(evInfo[0], evInfo[1], evInfo[2]);
+  console.log(stInfo[0], stInfo[1], stInfo[2]);
+  const EmptyBox = () => {
+    return <div className="empty-box"></div>;
+  };
+  const SubwayLine = ({ name, idx }) => {
+    return (
+      <div className="subwayline-container">
+        <div className="subway-line-text">{name}</div>
+        <div className="line-text">{stationLineList[idx]}호선</div>
+      </div>
+    );
+  };
   return (
     <div className="route-page-container">
       <div className="route-header">
@@ -251,18 +302,32 @@ const RoutePage = () => {
           </div>
         </div>
       </div>
-      <div>
-        {stationInfoList.map((itm, idx) => {
-          return (
-            <div>
-              <div>
-                <div>{itm.Station}개 역 이동</div>
-                <div>{itm.Way} 방향</div>
-              </div>
-              <div></div>
+      <div className="main-content">
+        <div className="subway-line">
+          {stationList.map((itm, idx) => {
+            return <SubwayLine name={itm} idx={idx} />;
+          })}
+        </div>
+        <div className="line"></div>
+        <div>
+          {stInfo[0] ? <GoodBOX /> : <BadBOX />}
+          <div className="move-station-info">
+            <div className="station-detail-info">
+              <div className="move-station-text">{firstStation}개 역 이동</div>
+              <div className="move-way">{firstWay} 방향</div>
             </div>
-          );
-        })}
+            <div className="move-time">{firstTime}분</div>
+          </div>
+          {stInfo[1] ? <GoodBOX /> : <BadBOX />}
+          <div className="move-station-info">
+            <div className="station-detail-info">
+              <div className="move-station-text">{lastStation}개 역 이동</div>
+              <div className="move-way">{lastWay} 방향</div>
+            </div>
+            <div className="move-time">{lastTime}분</div>
+          </div>
+          {stInfo[2] ? <GoodBOX /> : <BadBOX />}
+        </div>
       </div>
     </div>
   );
