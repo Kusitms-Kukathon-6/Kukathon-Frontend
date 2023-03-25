@@ -1,4 +1,6 @@
 import "./routePage.css";
+import { useLocation } from "react-router-dom";
+
 import React, { useState, useEffect } from "react";
 import { UilArrowRight } from "@iconscout/react-unicons";
 import { UilStar } from "@iconscout/react-unicons"; //안채워진
@@ -223,6 +225,10 @@ const stationLineList = [
 ];
 
 const RoutePage = () => {
+  const location = useLocation();
+  const searchResult = location.state.searchResult;
+  console.log(searchResult);
+  console.log("asdfadsfsd");
   const [bookmark, setBookmark] = useState(false);
 
   const handleBookmark = () => {
@@ -273,6 +279,7 @@ const RoutePage = () => {
       </div>
     );
   };
+
   return (
     <div className="route-page-container">
       <div className="route-header">

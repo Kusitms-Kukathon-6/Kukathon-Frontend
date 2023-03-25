@@ -24,6 +24,7 @@ const SearchBox = () => {
   });
   const [departisOpen, setDepartIsOpen] = useState(false);
   const [destinisOpen, setDestinIsOpen] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
 
   const DepartSerchSetting = (e) => {
     setDepartIsOpen(false);
@@ -36,13 +37,13 @@ const SearchBox = () => {
     const selectedValue = e.target.innerText; // 클릭한 검색 결과의 값을 가져옵니다.
     setDestinSearch(selectedValue); // 검색 결과를 input 창에 입력합니다.
   };
-
   const navigate = useNavigate();
-
-  const RouteRequest = () => {
+  const RouteRequest = async () => {
     if (departSearch && destinSearch) {
-      const response = RouteResult(departSearch, destinSearch);
-      navigate("/route"); // 이동할 경로를 지정합니다.
+      const response = await RouteResult(departSearch, destinSearch);
+      console.log(response);
+      // setSearchResult(response.data);
+      navigate("/route", { state: { searchResult: response.data } }); // state 객체에 searchResult 값을 전달합니다.
     }
   };
 
