@@ -4,6 +4,9 @@ import { UilArrowRight } from '@iconscout/react-unicons';
 import { UilStar } from '@iconscout/react-unicons'; //안채워진
 import { UimStar } from '@iconscout/react-unicons-monochrome';//채워진
 import { UimCircle } from '@iconscout/react-unicons-monochrome';
+import { useRecoilState } from 'recoil';
+import { modalState } from '../components/Modal/recoil';
+import Modal from "./Modal";
 
 const RoutePage = () => {
   const [bookmark, setBookmark] = useState(false);
@@ -11,6 +14,17 @@ const RoutePage = () => {
   const handleBookmark = () => {
     setBookmark(!bookmark);
   };
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modal, setModal] = useRecoilState(modalState);
+  const showModal = () => {
+      setModalOpen(true);
+  };
+  const isModal = () => {
+      setModal(!modal);
+  };
+  console.log(modal);
+
   
   return (
     <>
@@ -61,7 +75,9 @@ const RoutePage = () => {
                 <div className="content2-right-card-in-l-1">6개 역 이동</div>
                 <div className="content2-right-card-in-l-2">애오개 방향</div>
               </div>
-              <div className="content2-right-card-in-r"></div>
+              <div className="content2-right-card-in-r">
+                <Modal />
+              </div>
 
             </div>
           </div>
