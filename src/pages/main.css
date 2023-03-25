@@ -1,0 +1,74 @@
+.all {
+  display: inline-block;
+  overflow: scroll;
+  background-color: #f5f5f5;
+  width: 390px;
+}
+
+.top {
+  height: 486px;
+  background-color: #e8ebfd;
+  border-bottom-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+
+.bottom {
+  height: 100%;
+}
+.main-header {
+  display: flex;
+  height: 197px;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+}
+.service-name {
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.03em;
+  text-align: left;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 42px;
+}
+
+.service-info {
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.03em;
+  color: #4270ed;
+  font-weight: 500;
+  font-size: 13px;
+}
+.usually-route-container {
+  margin-top: 130px;
+  padding-left: 19px;
+  margin-bottom: 10px;
+}
+.usually-header {
+  color: #2a2a2a;
+  font-weight: 700;
+  font-size: 20px;
+  text-align: left;
+  line-height: 24px;
+  letter-spacing: -0.03em;
+}
+.usually-header-detail {
+  margin-top: 4px;
+  text-align: left;
+  color: #777777;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 19px;
+  letter-spacing: -0.03em;
+}
+.login-hidden {
+  display: none;
+}
