@@ -1,18 +1,50 @@
 import "./SearchBox.css";
 import { UilArrowUp, UilMapMarkerAlt } from "@iconscout/react-unicons";
 import { useEffect, useState } from "react";
+import { searchData } from "../../assets/Data/searchData";
+import { RouteResult } from "../../api/routeresult";
+import { useNavigate } from "react-router-dom";
 
 const SearchBox = () => {
-  const onChangeSearch = (e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
+  const [departSearch, setDepartSearch] = useState("");
+  const onDepartChange = (e) => {
+    setDepartSearch(e.target.value);
   };
-  const onSearch = (e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
+  const [destinSearch, setDestinSearch] = useState("");
+  const onDestinChange = (e) => {
+    setDestinSearch(e.target.value);
   };
 
-  const [search, setSearch] = useState("");
+  const filterDepartSubway = searchData.filter((p) => {
+    return p.includes(departSearch);
+  });
+
+  const filterDestinSubway = searchData.filter((p) => {
+    return p.includes(destinSearch);
+  });
+  const [departisOpen, setDepartIsOpen] = useState(false);
+  const [destinisOpen, setDestinIsOpen] = useState(false);
+
+  const DepartSerchSetting = (e) => {
+    setDepartIsOpen(false);
+    const selectedValue = e.target.innerText; // 클릭한 검색 결과의 값을 가져옵니다.
+    setDepartSearch(selectedValue); // 검색 결과를 input 창에 입력합니다.
+  };
+
+  const DestionSerchSetting = (e) => {
+    setDestinIsOpen(false);
+    const selectedValue = e.target.innerText; // 클릭한 검색 결과의 값을 가져옵니다.
+    setDestinSearch(selectedValue); // 검색 결과를 input 창에 입력합니다.
+  };
+
+  const navigate = useNavigate();
+
+  const RouteRequest = () => {
+    if (departSearch && destinSearch) {
+      const response = RouteResult(departSearch, destinSearch);
+      navigate("/route"); // 이동할 경로를 지정합니다.
+    }
+  };
 
   return (
     <div className="search-container">
@@ -24,7 +56,33 @@ const SearchBox = () => {
           </div>
           <div className="search-box">
             <div className="station-text">출발역</div>
-            <input className="place-input" placeholder="출발지를 입력하세요" />
+            <input
+              className="place-input"
+              placeholder="출발지를 입력하세요"
+              type="text"
+              value={departSearch}
+              onChange={(e) => {
+                onDepartChange(e);
+                setDepartIsOpen(true);
+              }}
+            />
+            <div
+              className={
+                "searchresult" + (departisOpen ? "" : " search-hidden")
+              }
+            >
+              {filterDepartSubway.slice(0, 5).map((value, idx) => {
+                return (
+                  <div
+                    key={idx}
+                    className="searchresult-li"
+                    onClick={DepartSerchSetting}
+                  >
+                    {value}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
         <div>
@@ -42,12 +100,40 @@ const SearchBox = () => {
           </div>
           <div className="search-box">
             <div className="station-text">도착역</div>
-            <input className="place-input" placeholder="목적지를 입력하세요" />
+            <input
+              className="place-input"
+              placeholder="목적지를 입력하세요"
+              type="text"
+              value={destinSearch}
+              onChange={(e) => {
+                onDestinChange(e);
+                setDestinIsOpen(true);
+              }}
+            />
+            <div
+              className={
+                "searchresult" + (destinisOpen ? "" : " search-hidden")
+              }
+            >
+              {filterDestinSubway.slice(0, 5).map((value, idx) => {
+                return (
+                  <div
+                    key={idx}
+                    className="searchresult-li"
+                    onClick={DestionSerchSetting}
+                  >
+                    {value}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
       <div className="route-btn-container">
-        <button className="route-btn">경로 확인하기</button>
+        <button className="route-btn" onClick={RouteRequest}>
+          경로 확인하기
+        </button>
       </div>
     </div>
   );
