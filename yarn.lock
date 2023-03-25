@@ -1244,6 +1244,13 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@iconscout/react-unicons-monochrome@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@iconscout/react-unicons-monochrome/-/react-unicons-monochrome-1.0.0.tgz#e6e8d2727c79e70d514bf32272e94d60f790414d"
+  integrity sha512-L1N//9JsYeIq9i9ytIayOYAvuQYrk7kUg5s56W+GdsIlA2tMs4RnlOROkVa5O33+2Zhic6m7oXSR3m9uK31uIw==
+  dependencies:
+    react ">=15.0.0 <17.0.0"
+
 "@iconscout/react-unicons@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@iconscout/react-unicons/-/react-unicons-2.0.0.tgz#e5ca9cbf9315587ee3386b7df8d8f0c34a2bc161"

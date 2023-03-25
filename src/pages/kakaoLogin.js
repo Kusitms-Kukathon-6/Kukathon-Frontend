@@ -20,7 +20,7 @@ const kakaoLogin = (code) => {
       .catch((err) => {
         console.log("소셜로그인 에러", err);
         window.alert("로그인에 실패하였습니다.");
-        history.replace("/login"); // 로그인 실패하면 로그인화면으로 돌려보냄
+        history.replace("/main"); // 로그인 실패하면 로그인화면으로 돌려보냄
       });
   };
 };
@@ -37,7 +37,7 @@ const KakaoAuthHandler = (props) => {
   //   dispatch(kakaoLogin(code));
   // }, [code, dispatch]);
 
-  return <div>로그인 완료</div>;
+  return <div></div>;
 };
 
 export default KakaoAuthHandler;

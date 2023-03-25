@@ -1,6 +1,19 @@
 import "./SearchBox.css";
 import { UilArrowUp, UilMapMarkerAlt } from "@iconscout/react-unicons";
+import { useEffect, useState } from "react";
+
 const SearchBox = () => {
+  const onChangeSearch = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+  const onSearch = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+
+  const [search, setSearch] = useState("");
+
   return (
     <div className="search-container">
       <div className="where-text">어디로 가시나요?</div>
@@ -36,8 +49,6 @@ const SearchBox = () => {
       <div className="route-btn-container">
         <button className="route-btn">경로 확인하기</button>
       </div>
-
-      <div></div>
     </div>
   );
 };
