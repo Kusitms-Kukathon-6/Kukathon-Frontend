@@ -1,19 +1,20 @@
 import "./main.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBox from "../components/SearchBox/SearchBox";
+import LoginButton from "../components/login/loginButton";
+import Bookmark from "../components/bookmark/bookmark";
 const Main = () => {
-  const [search, setSearch] = useState("");
+  const [loginToken, setLoginToken] = useState("");
+  const [login, setLogin] = useState(true);
 
-  const onChangeSearch = (e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
-  const onSearch = (e) => {
-    e.preventDefault();
-    setSearch(e.target.value);
-  };
-
+  useEffect(() => {
+    if (loginToken === "") {
+      setLogin(false);
+    } else {
+      setLogin(true);
+    }
+  }, [loginToken]);
   return (
     <div className="all">
       <div className="top">
@@ -29,7 +30,24 @@ const Main = () => {
         </div>
         <SearchBox />
       </div>
-      <div className="bottom"></div>
+      <div className={"bottom" + (login ? " login-hidden" : "")}>
+        <div className="usually-route-container">
+          <div className="usually-header">자주가는 경로</div>
+          <div className="usually-header-detail">
+            로그인 하고 즐겨찾기 해보세요
+          </div>
+        </div>
+        <LoginButton />
+      </div>
+      <div className={"bottom" + (login ? "" : " login-hidden")}>
+        <div className="usually-route-container">
+          <div className="usually-header">자주가는 경로</div>
+          <div className="usually-header-detail">
+            자주 가는 곳을 즐겨찾기하고 빠르게 찾아가세요
+          </div>
+        </div>
+        <Bookmark />
+      </div>
     </div>
   );
 };
