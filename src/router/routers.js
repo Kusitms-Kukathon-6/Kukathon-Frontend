@@ -3,7 +3,7 @@ import Login from "../pages/login";
 import RoutePage from "../pages/routePage";
 import { Route, Routes } from "react-router-dom";
 
-const Routers = ({}) => {
+const Routers = () => {
   return (
     <Routes>
       <Route path="/*" element={<Main />}></Route>

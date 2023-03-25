@@ -1,3 +1,43 @@
 .main-box {
   background-color: wheat;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid red;
+  display: flex;
+  text-align: center;
+  width: 50%;
+  height: 50%;
+
+}
+.main-box-1{
+  
+  background-color: white;
+  border: 1px solid black;
+  width: 300px;
+  height: 50%;
+  margin-top: 80px;
+  text-align: center;
+}
+.main-button{
+  width: 100px;
+  height:20px;
+  
+}
+.main-box-2{
+  border: 1px solid red;
+  width: 70%;
+  height: 20%;
+}
+.main-box-2{
+  background-color: white;
+  
+}
+.main-box-2-1{
+  border: 1px solid red;
+  
+}
+.main-box-2-2{
+  border: 1px solid red;
 }
