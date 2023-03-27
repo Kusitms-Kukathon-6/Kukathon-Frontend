@@ -20,7 +20,7 @@ const Main = () => {
       <div className="top">
         <div className="main-header">
           <div>
-            <div className="service-name">서비스 명</div>
+            <div className="service-name">EZWay</div>
             <div className="service-info">더 쉽게, 어디든 떠나세요</div>
           </div>
           <div className="profile-container">

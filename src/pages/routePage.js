@@ -2,7 +2,7 @@ import "./routePage.css";
 import { useLocation } from "react-router-dom";
 
 import React, { useState, useEffect } from "react";
-import { UilArrowRight } from "@iconscout/react-unicons";
+import { UilArrowRight, UilArrowUpRight } from "@iconscout/react-unicons";
 import { UilStar } from "@iconscout/react-unicons"; //안채워진
 import { UimStar } from "@iconscout/react-unicons-monochrome"; //채워진
 import { UimCircle } from "@iconscout/react-unicons-monochrome";
@@ -10,6 +10,21 @@ import { StationInfo } from "../api/stationInfo";
 import GoodIcon from "../assets/img/goodicon.svg";
 import BadIcon from "../assets/img/badicon.svg";
 import Modal from "./Modal";
+import { useRecoilState } from "recoil";
+import { modalState } from "../components/Modal/recoil";
+import styled from "styled-components";
+
+export const ModalBtn = styled.button`
+  width: 63px;
+  height: 36px;
+  background-color: white;
+  text-decoration: none;
+  border: none;
+  color: #777777;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 13px;
+`;
 const routeDate = {
   result: {
     globalStartName: "홍대입구",
@@ -185,6 +200,7 @@ let listLength = routeDate.result.stationSet.stations.length;
 const totalTravelTime =
   routeDate.result.stationSet.stations[listLength - 1].travelTime; //총 소요시간
 const exChangeTime = routeDate.result.exChangeInfoSet.exChangeInfo.length; //환승 횟수
+
 for (let i = 0; i < listLength; i++) {
   if (
     routeDate.result.exChangeInfoSet.exChangeInfo[0].exName ==
@@ -194,6 +210,7 @@ for (let i = 0; i < listLength; i++) {
     break;
   }
 }
+
 const firstTime = routeDate.result.stationSet.stations[exChangeID].travelTime; //첫번째 환승 소요시간
 const lastTime =
   routeDate.result.stationSet.stations[listLength - 1].travelTime - firstTime; //두번쨰 환승 소요 시간
@@ -226,16 +243,23 @@ const stationLineList = [
 ];
 
 const RoutePage = () => {
-  const location = useLocation();
-  const searchResult = location.state.searchResult;
-  console.log(searchResult);
-  console.log("asdfadsfsd");
+  const { state } = useLocation();
+  console.log(state);
   const [bookmark, setBookmark] = useState(false);
   const [api, setApi] = useState("");
   const handleBookmark = () => {
     setBookmark(!bookmark);
   };
-  const [stInfo, setStInfo] = useState([false, false, false]);
+  const [modal, setModal] = useRecoilState(modalState);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const openModalHandler = () => {
+    setIsOpen(!isOpen);
+  };
+  const buttonClick = () => {
+    setModal(true);
+  };
+  const [stInfo, setStInfo] = useState([true, true, false]);
 
   useEffect(() => {
     const getEV = async (itm, idx) => {
@@ -247,16 +271,22 @@ const RoutePage = () => {
     stationList1.map((itm, idx) => {
       getEV(itm, idx);
     });
-  }, [evInfo]);
+  }, []);
 
   const GoodBOX = () => {
     return (
       <div className="good">
-        <div className="good-icon">
-          <img src={GoodIcon} alt="" />
+        <div>
+          <div className="good-icon">
+            <img src={GoodIcon} alt="" />
+          </div>
+
+          <div className="good-text">환승 가능</div>
         </div>
-        <div className="good-text">환승 가능</div>
-        <Modal api={api} />
+        <ModalBtn onClick={openModalHandler}>
+          보기
+          <UilArrowUpRight size="14px" />
+        </ModalBtn>
       </div>
     );
   };
@@ -270,11 +300,7 @@ const RoutePage = () => {
       </div>
     );
   };
-  console.log(evInfo[0], evInfo[1], evInfo[2]);
-  console.log(stInfo[0], stInfo[1], stInfo[2]);
-  const EmptyBox = () => {
-    return <div className="empty-box"></div>;
-  };
+
   const SubwayLine = ({ name, idx }) => {
     return (
       <div className="subwayline-container">
@@ -340,6 +366,7 @@ const RoutePage = () => {
           {stInfo[2] ? <GoodBOX /> : <BadBOX />}
         </div>
       </div>
+      <Modal api={api} openModalHandler={openModalHandler} isOpen={isOpen} />
     </div>
   );
 };

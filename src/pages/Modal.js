@@ -2,18 +2,15 @@ import { useState, Component } from "react";
 import { useRecoilState } from "recoil";
 import { modalState } from "../components/Modal/recoil";
 import styled from "styled-components";
-import { UilArrowUpRight } from "@iconscout/react-unicons";
+import { UilArrowUpRight, UilTimes } from "@iconscout/react-unicons";
+import BadIcon from "../assets/img/badicon.svg";
 
 export const ModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid lightgray;
   border-radius: 20px;
-  /*스크롤 될 만큼의 크기를 위해 height설정*/
-  /*모달창 x버튼의 부모를 전체 화면으로 주기 위해 상위 요소 relative처리*/
   position: relative;
-  z-index: 9999;
 `;
 
 export const ModalBackdrop = styled.div`
@@ -30,17 +27,6 @@ export const ModalBackdrop = styled.div`
   align-items: center;
 `;
 
-export const ModalBtn = styled.button`
-  background-color: white;
-  text-decoration: none;
-  border: none;
-  color: #777777;
-  border-radius: 30px;
-  cursor: pointer;
-  height: 18px;
-  font-size: 12px;
-`;
-
 export const ModalView = styled.div.attrs(() => ({
   role: "dialog",
 }))`
@@ -53,228 +39,228 @@ export const ModalView = styled.div.attrs(() => ({
   height: 520px;
   border-radius: 1rem;
   position: relative;
-  > .close-btn {
-    // X 버튼을 화면 정중앙으로 정렬
-    position: absolute;
-    // 중앙에서 위로 10px 이동
-    top: 10px;
-    cursor: pointer;
-    margin-left: 300px;
-    width: 24px;
-    height: 24px;
+  z-index: 9999;
+  .closebtn-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+    padding-top: 20px;
+    color: #555555;
   }
-  .content3 {
-    margin-left: 16px;
-    height: 182px;
-    width: 320px;
-    background-color: beige;
-    margin-top: 43px;
+  .top-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .content-top {
-    height: 28px;
-    width: 104px;
-    background-color: #7f40d8;
+  .top-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 8px 16px;
+    gap: 8px;
+    background: #e8ebfd;
     border-radius: 8px;
-    margin-left: 110px;
-  }
-  .content-bottom {
-    height: 140px;
-    width: 320px;
-  }
-  .content-bottom-top {
-    width: 208px;
-    height: 22px;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 25px;
+    /* identical to box height, or 147% */
 
-    margin-top: 12px;
-    justify-content: space-between;
     display: flex;
-    margin-left: 56px;
-  }
-  .content-bottom-top-1 {
-    height: 22px;
-    width: 64px;
+    align-items: center;
+    letter-spacing: -0.03em;
 
-    font-size: 11px;
-  }
-  .content-bottom-top-2 {
-    height: 22px;
-    width: 66px;
+    /* grey-90 */
 
-    font-size: 11px;
+    color: #2a2a2a;
   }
-  .content-bottom-bottom {
-    width: 300px;
-    height: 100px;
-
-    justify-content: space-between;
+  .detail-info-container {
     display: flex;
-    margin-top: 5px;
-    margin-left: 10px;
+    justify-content: center;
+    height: 362px;
   }
-  .content-bottom-left {
-    width: 144px;
-    height: 90px;
-
-    background-color: #f5f5f5;
-    border-radius: 12px;
-  }
-  .content-bottom-right {
-    width: 144px;
-    height: 90px;
-
-    background-color: #ffdfdf;
-    border-radius: 12px;
-  }
-  .content4 {
-    margin-left: 16px;
-    height: 182px;
-    width: 320px;
-    background-color: beige;
-    margin-top: 20px;
-  }
-  .content-top1 {
-    height: 28px;
-    width: 104px;
-    background-color: #7f40d8;
-    border-radius: 8px;
-    margin-left: 110px;
-  }
-  .content-bottom1 {
-    height: 140px;
-    width: 320px;
-  }
-  .content-bottom-top1 {
-    width: 208px;
-    height: 22px;
-
-    margin-top: 12px;
-    justify-content: space-between;
+  .facility {
     display: flex;
-    margin-left: 56px;
-  }
-  .content-bottom-top-11 {
-    height: 22px;
-    width: 64px;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 21px;
+    /* identical to box height, or 140% */
 
-    font-size: 11px;
-  }
-  .content-bottom-top-21 {
-    height: 22px;
-    width: 66px;
-
-    font-size: 11px;
-  }
-  .content-bottom-bottom1 {
-    width: 300px;
-    height: 100px;
-
-    justify-content: space-between;
     display: flex;
-    margin-top: 5px;
-    margin-left: 10px;
-  }
-  .content-bottom-left1 {
-    width: 144px;
-    height: 90px;
+    align-items: center;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
 
-    background-color: #f5f5f5;
-    border-radius: 12px;
-  }
-  .content-bottom-right1 {
-    width: 144px;
-    height: 90px;
+    /* grey-90 */
 
-    background-color: #ffdfdf;
-    border-radius: 12px;
+    color: #2a2a2a;
   }
-  .content5 {
-    height: 28px;
-    width: 104px;
-    background-color: #60b157;
-    border-radius: 8px;
-    margin-left: 123px;
-    margin-top: 30px;
-  }
-  .content-top,
-  .content5,
-  .content-top1 {
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
+  .location-info-container {
+    display: flex;
     justify-content: center;
   }
-  .content-top,
-  .content5 {
-    color: white;
+  .detail-info {
+    padding: 14px;
   }
-  .content-bottom-left,
-  .content-bottom-right,
-  .content-bottom-left1,
-  .content-bottom-right1 {
-    font-size: 10px;
-    text-align: center;
+  .left {
+    border-right: 1px dashed #949494;
+  }
+  .location-info {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    width: 144px;
+    height: 100px;
+    background: #f5f5f5;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 21px;
+    align-items: center;
+    letter-spacing: -0.03em;
+    color: #3f3f3f;
   }
-  .content-bottom-right,
-  .content-bottom-right1 {
-    color: red;
+  .nope {
+    display: flex;
+    justify-content: center;
+    width: 144px;
+    height: 100px;
+    background: #ffdfdf;
+    color: #ff334b;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 21px;
+    align-items: center;
+    letter-spacing: -0.03em;
+  }
+  .empty-box {
+    height: 91px;
+  }
+  .gate {
+    position: relative;
+    left: 120px;
+    top: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 35px;
+    background-color: #e8ebfd;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 25px;
+    letter-spacing: -0.03em;
+    color: #2a2a2a;
   }
 `;
+const data = {
+  stationName: "동대문역사문화",
+  operationInfoDetailList: [
+    {
+      use_YN: "사용가능",
+      faci_NM: "승강기)엘리베이터 내부#1",
+      stup_LCTN: "B2-B1",
+      gubun: "EV",
+      location: "외선 8-3",
+    },
+    {
+      use_YN: "사용가능",
+      faci_NM: "승강기)엘리베이터 내부#2",
+      stup_LCTN: "B2-B1",
+      gubun: "EV",
+      location: "내선 3-2",
+    },
+    {
+      use_YN: "사용가능",
+      faci_NM: "승강기)엘리베이터 외부#1",
+      stup_LCTN: "B1-1F",
+      gubun: "EV",
+      location: "1번 출구측",
+    },
+    {
+      use_YN: "사용가능",
+      faci_NM: "승강기)엘리베이터 내부#1",
+      stup_LCTN: "B3-B1",
+      gubun: "EV",
+      location: "승강장",
+    },
+    {
+      use_YN: "사용가능",
+      faci_NM: "승강기)엘리베이터 외부#1",
+      stup_LCTN: "B1-F1",
+      gubun: "EV",
+      location: "4번 출구측",
+    },
+  ],
+  outElv: ["1번 출구측", "4번 출구측"],
+  inElv: ["외선 8-3", "내선 3-2", "승강장"],
+  outWh: [],
+  inWh: [],
+  availabe: true,
+};
 
-export const Modal = ({ api }) => {
+const Facility = ({ loc }) => {
+  if (loc.length !== 0) {
+    return (
+      <div className="location-info">
+        {loc.map((value) => {
+          return <div className="loc">{value}</div>;
+        })}
+      </div>
+    );
+  } else {
+    return (
+      <div className="nope">
+        <img src={BadIcon} alt="" />
+        <div>이용 불가능</div>
+      </div>
+    );
+  }
+};
+
+export const Modal = ({ api, openModalHandler, isOpen }) => {
   console.log(api);
-  const [modal, setModal] = useRecoilState(modalState);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const openModalHandler = () => {
-    setIsOpen(!isOpen);
-  };
-  const buttonClick = () => {
-    setModal(true);
-  };
 
   return (
     <>
       <ModalContainer>
-        <ModalBtn onClick={openModalHandler}>
-          {isOpen ? "Opened!" : "보기"}
-          <UilArrowUpRight size="14px" />
-        </ModalBtn>
         {isOpen ? (
-          <ModalBackdrop onClick={openModalHandler}>
+          <ModalBackdrop>
             <ModalView>
-              <div className="close-btn">&times;</div>
-              <div className="content3">
-                <div className="content-top">동대문역사문화</div>
-                <div className="content-bottom">
-                  <div className="content-bottom-top">
-                    <div className="content-bottom-top-1">엘리베이터</div>
-                    <div className="content-bottom-top-2">휠체어리프트</div>
+              <div className="closebtn-container">
+                <UilTimes onClick={openModalHandler} />
+              </div>
+              <div className="top-info-container">
+                <div className="top-info">{data.stationName}</div>
+              </div>
+              <div className="detail-info-container">
+                <div className="detail-info left">
+                  <div className="facility">엘레베이터</div>
+                  <div className="location-info-container">
+                    <Facility loc={data.inElv} />
                   </div>
-                  <div className="content-bottom-bottom">
-                    <div className="content-bottom-left">
-                      1번 출구측, 4번 출구측
-                    </div>
-                    <div className="content-bottom-right">이용불가능</div>
+                  <div className="empty-box">
+                    <div className="gate">개찰구</div>
                   </div>
+                  <Facility loc={data.outElv} />
+                </div>
+
+                <div className="detail-info right">
+                  <div className="facility">휠체어 리프트</div>
+                  <div className="location-info-container">
+                    <Facility loc={data.inWh} />
+                  </div>
+                  <div className="empty-box"></div>
+                  <Facility loc={data.outWh} />
                 </div>
               </div>
-              <div className="content4">
-                <div className="content-top1">개찰구</div>
-                <div className="content-bottom1">
-                  <div className="content-bottom-top1">
-                    <div className="content-bottom-top-11">엘리베이터</div>
-                    <div className="content-bottom-top-21">휠체어리프트</div>
-                  </div>
-                  <div className="content-bottom-bottom1">
-                    <div className="content-bottom-left1">
-                      외선 8-3, 내선 3-2, 승강장
-                    </div>
-                    <div className="content-bottom-right1">이용불가능</div>
-                  </div>
-                </div>
+              <div className="top-info-container">
+                <div className="top-info">{data.stationName}</div>
               </div>
-              <div className="content5">동대문역사문화</div>
             </ModalView>
           </ModalBackdrop>
         ) : null}
