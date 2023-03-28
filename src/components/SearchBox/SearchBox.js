@@ -41,12 +41,12 @@ const SearchBox = () => {
   const navigate = useNavigate(); // useNavigate 훅을 선언합니다.
 
   const RouteRequest = async () => {
-    let response = [];
-    // if (departSearch && destinSearch) {
-    //   response = await RouteResult(departSearch, destinSearch);
-    //   console.log(response);
-    // }
-    navigate("/route", { state: response?.data }); // state 객체에 searchResult 값을 전달합니다.
+    const response = await RouteResult(departSearch, destinSearch);
+    console.log(response);
+    if (response) {
+      console.log();
+      navigate("/route", { state: response.data }); // state 객체에 searchResult 값을 전달합니다.
+    }
   };
 
   return (
@@ -69,6 +69,7 @@ const SearchBox = () => {
                 onDepartChange(e);
                 setDepartIsOpen(true);
               }}
+              required
             />
             <div
               className={
@@ -113,6 +114,7 @@ const SearchBox = () => {
                 onDestinChange(e);
                 setDestinIsOpen(true);
               }}
+              required
             />
             <div
               className={

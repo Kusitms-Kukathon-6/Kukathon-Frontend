@@ -6,8 +6,7 @@ export async function RouteResult(departSearch, destinSearch) {
     .get(
       `http://52.79.48.234:8080/subway/route?startStation=${departSearch}&endStation=${destinSearch}`
     )
-    .then((res) => res.data)
-    .catch(console.log("에러"));
-
+    .then((res) => res.data);
+  console.log(response);
   return response;
 }

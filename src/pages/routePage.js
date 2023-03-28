@@ -3,10 +3,7 @@ import { useLocation } from "react-router-dom";
 
 import React, { useState, useEffect } from "react";
 import { UilArrowRight, UilArrowUpRight } from "@iconscout/react-unicons";
-import { UilStar } from "@iconscout/react-unicons"; //안채워진
 import { UimStar } from "@iconscout/react-unicons-monochrome"; //채워진
-import { UimCircle } from "@iconscout/react-unicons-monochrome";
-import { StationInfo } from "../api/stationInfo";
 import GoodIcon from "../assets/img/goodicon.svg";
 import BadIcon from "../assets/img/badicon.svg";
 import Modal from "./Modal";
@@ -193,7 +190,7 @@ const routeDate = {
   },
 };
 
-let evInfo = [false, false, false];
+let evInfo = [true, true, false];
 
 let exChangeID = 0;
 let listLength = routeDate.result.stationSet.stations.length;
@@ -243,37 +240,36 @@ const stationLineList = [
 ];
 
 const RoutePage = () => {
-  const { state } = useLocation();
-  console.log(state);
+  // const location = useLocation();
+  // const searchResult = location.state;
+  // console.log(searchResult);
+
   const [bookmark, setBookmark] = useState(false);
-  const [api, setApi] = useState("");
   const handleBookmark = () => {
     setBookmark(!bookmark);
   };
   const [modal, setModal] = useRecoilState(modalState);
-
+  const [stName, setStName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const openModalHandler = () => {
+  const openModalHandler = (stationName) => {
     setIsOpen(!isOpen);
+    setStName(stationName);
   };
   const buttonClick = () => {
     setModal(true);
   };
-  const [stInfo, setStInfo] = useState([true, true, false]);
+  // useEffect(() => {
+  //   const getEV = async (itm, idx) => {
+  //     const response = await StationInfo(itm);
+  //     evInfo[idx] = response.availabe;
+  //   };
+  //   stationList1.map((itm, idx) => {
+  //     getEV(itm, idx);
+  //   });
+  //   console.log(evInfo);
+  // }, []);
 
-  useEffect(() => {
-    const getEV = async (itm, idx) => {
-      const response = await StationInfo(itm);
-      evInfo[idx] = response.availabe;
-      setStInfo(evInfo);
-      setApi(response.data);
-    };
-    stationList1.map((itm, idx) => {
-      getEV(itm, idx);
-    });
-  }, []);
-
-  const GoodBOX = () => {
+  const GoodBOX = ({ stationName }) => {
     return (
       <div className="good">
         <div>
@@ -283,7 +279,7 @@ const RoutePage = () => {
 
           <div className="good-text">환승 가능</div>
         </div>
-        <ModalBtn onClick={openModalHandler}>
+        <ModalBtn onClick={() => openModalHandler(stationName)}>
           보기
           <UilArrowUpRight size="14px" />
         </ModalBtn>
@@ -342,12 +338,12 @@ const RoutePage = () => {
       <div className="main-content">
         <div className="subway-line">
           {stationList.map((itm, idx) => {
-            return <SubwayLine name={itm} idx={idx} />;
+            return <SubwayLine name={itm} key={idx} idx={idx} />;
           })}
         </div>
         <div className="line"></div>
         <div>
-          {stInfo[0] ? <GoodBOX /> : <BadBOX />}
+          {evInfo[0] ? <GoodBOX stationName={stationList[0]} /> : <BadBOX />}
           <div className="move-station-info">
             <div className="station-detail-info">
               <div className="move-station-text">{firstStation}개 역 이동</div>
@@ -355,7 +351,7 @@ const RoutePage = () => {
             </div>
             <div className="move-time">{firstTime}분</div>
           </div>
-          {stInfo[1] ? <GoodBOX /> : <BadBOX />}
+          {evInfo[1] ? <GoodBOX stationName={stationList[1]} /> : <BadBOX />}
           <div className="move-station-info">
             <div className="station-detail-info">
               <div className="move-station-text">{lastStation}개 역 이동</div>
@@ -363,10 +359,14 @@ const RoutePage = () => {
             </div>
             <div className="move-time">{lastTime}분</div>
           </div>
-          {stInfo[2] ? <GoodBOX /> : <BadBOX />}
+          {evInfo[2] ? <GoodBOX stationName={stationList[2]} /> : <BadBOX />}
         </div>
       </div>
-      <Modal api={api} openModalHandler={openModalHandler} isOpen={isOpen} />
+      <Modal
+        openModalHandler={openModalHandler}
+        isOpen={isOpen}
+        stName={stName}
+      />
     </div>
   );
 };

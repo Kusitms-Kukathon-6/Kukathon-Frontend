@@ -4,6 +4,7 @@ import { modalState } from "../components/Modal/recoil";
 import styled from "styled-components";
 import { UilArrowUpRight, UilTimes } from "@iconscout/react-unicons";
 import BadIcon from "../assets/img/badicon.svg";
+import { StationInfo } from "../api/stationInfo";
 
 export const ModalContainer = styled.div`
   display: flex;
@@ -157,58 +158,17 @@ export const ModalView = styled.div.attrs(() => ({
     color: #2a2a2a;
   }
 `;
-const data = {
-  stationName: "동대문역사문화",
-  operationInfoDetailList: [
-    {
-      use_YN: "사용가능",
-      faci_NM: "승강기)엘리베이터 내부#1",
-      stup_LCTN: "B2-B1",
-      gubun: "EV",
-      location: "외선 8-3",
-    },
-    {
-      use_YN: "사용가능",
-      faci_NM: "승강기)엘리베이터 내부#2",
-      stup_LCTN: "B2-B1",
-      gubun: "EV",
-      location: "내선 3-2",
-    },
-    {
-      use_YN: "사용가능",
-      faci_NM: "승강기)엘리베이터 외부#1",
-      stup_LCTN: "B1-1F",
-      gubun: "EV",
-      location: "1번 출구측",
-    },
-    {
-      use_YN: "사용가능",
-      faci_NM: "승강기)엘리베이터 내부#1",
-      stup_LCTN: "B3-B1",
-      gubun: "EV",
-      location: "승강장",
-    },
-    {
-      use_YN: "사용가능",
-      faci_NM: "승강기)엘리베이터 외부#1",
-      stup_LCTN: "B1-F1",
-      gubun: "EV",
-      location: "4번 출구측",
-    },
-  ],
-  outElv: ["1번 출구측", "4번 출구측"],
-  inElv: ["외선 8-3", "내선 3-2", "승강장"],
-  outWh: [],
-  inWh: [],
-  availabe: true,
-};
 
 const Facility = ({ loc }) => {
   if (loc.length !== 0) {
     return (
       <div className="location-info">
-        {loc.map((value) => {
-          return <div className="loc">{value}</div>;
+        {loc.map((value, idx) => {
+          return (
+            <div className="loc" key={idx}>
+              {value}
+            </div>
+          );
         })}
       </div>
     );
@@ -222,9 +182,85 @@ const Facility = ({ loc }) => {
   }
 };
 
-export const Modal = ({ api, openModalHandler, isOpen }) => {
-  console.log(api);
-
+export const Modal = ({ openModalHandler, isOpen, stName }) => {
+  // const [api, setApi] = useState("");
+  // const getEv = async () => {
+  //   const response = await StationInfo(stName);
+  //   setApi(response);
+  // };
+  let data;
+  if (stName === "홍대입구") {
+    data = {
+      stationName: "홍대입구",
+      operationInfoDetailList: [
+        {
+          use_YN: "사용가능",
+          faci_NM: "승강기)엘리베이터 내부#1",
+          stup_LCTN: "B2-B1",
+          location: "승강장",
+          gubun: "EV",
+        },
+        {
+          use_YN: "사용가능",
+          faci_NM: "승강기)엘리베이터 외부#1",
+          stup_LCTN: "B1-F1",
+          location: "8번 출구측",
+          gubun: "EV",
+        },
+      ],
+      outElv: ["8번 출구측"],
+      inElv: ["승강장"],
+      outWh: [],
+      inWh: [],
+      availabe: true,
+    };
+  } else {
+    data = {
+      stationName: "동대문역사문화",
+      operationInfoDetailList: [
+        {
+          use_YN: "사용가능",
+          faci_NM: "승강기)엘리베이터 내부#1",
+          stup_LCTN: "B2-B1",
+          location: "외선 8-3",
+          gubun: "EV",
+        },
+        {
+          use_YN: "사용가능",
+          faci_NM: "승강기)엘리베이터 내부#2",
+          stup_LCTN: "B2-B1",
+          location: "내선 3-2",
+          gubun: "EV",
+        },
+        {
+          use_YN: "사용가능",
+          faci_NM: "승강기)엘리베이터 외부#1",
+          stup_LCTN: "B1-1F",
+          location: "1번 출구측",
+          gubun: "EV",
+        },
+        {
+          use_YN: "사용가능",
+          faci_NM: "승강기)엘리베이터 내부#1",
+          stup_LCTN: "B3-B1",
+          location: "승강장",
+          gubun: "EV",
+        },
+        {
+          use_YN: "사용가능",
+          faci_NM: "승강기)엘리베이터 외부#1",
+          stup_LCTN: "B1-F1",
+          location: "4번 출구측",
+          gubun: "EV",
+        },
+      ],
+      outElv: ["1번 출구측", "4번 출구측"],
+      inElv: ["외선 8-3", "내선 3-2", "승강장"],
+      outWh: [],
+      inWh: [],
+      availabe: true,
+    };
+  }
   return (
     <>
       <ModalContainer>
@@ -235,7 +271,7 @@ export const Modal = ({ api, openModalHandler, isOpen }) => {
                 <UilTimes onClick={openModalHandler} />
               </div>
               <div className="top-info-container">
-                <div className="top-info">{data.stationName}</div>
+                <div className="top-info">{stName}</div>
               </div>
               <div className="detail-info-container">
                 <div className="detail-info left">
@@ -259,7 +295,7 @@ export const Modal = ({ api, openModalHandler, isOpen }) => {
                 </div>
               </div>
               <div className="top-info-container">
-                <div className="top-info">{data.stationName}</div>
+                <div className="top-info">{stName}</div>
               </div>
             </ModalView>
           </ModalBackdrop>
