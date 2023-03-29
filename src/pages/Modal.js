@@ -1,8 +1,5 @@
-import { useState, Component } from "react";
-import { useRecoilState } from "recoil";
-import { modalState } from "../components/Modal/recoil";
 import styled from "styled-components";
-import { UilArrowUpRight, UilTimes } from "@iconscout/react-unicons";
+import { UilTimes } from "@iconscout/react-unicons";
 import BadIcon from "../assets/img/badicon.svg";
 import { StationInfo } from "../api/stationInfo";
 
